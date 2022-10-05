@@ -1,0 +1,6 @@
+# Docker Helper
+Copyright (C) 2022, Christophe Calmejane
+
+## What is it?
+
+A collection of `dockerfile` designed to quickly setup `Docker containers` or be used as base for new `Docker images`.
