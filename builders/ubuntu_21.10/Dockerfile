@@ -34,8 +34,8 @@ RUN mkdir ~/cmake-install \
        && make install
 
 # Create a user
-ENV USERNAME=builder
-ENV PASSWORD=builder
+ARG USERNAME=builder
+ARG PASSWORD=builder
 
 RUN useradd -rm -d /home/$USERNAME -s /bin/bash -g root -G sudo -u 1000 $USERNAME
 RUN echo "$PASSWORD\n$PASSWORD" | passwd $USERNAME
