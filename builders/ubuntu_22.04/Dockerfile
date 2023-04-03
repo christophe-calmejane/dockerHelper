@@ -49,6 +49,9 @@ RUN git clone https://code.qt.io/qt/qt5.git qt6 \
 # Qt is installed in /usr/local/Qt-$QT_VERSION
 # Qt6Config.cmake is installed in /usr/local/Qt-$QT_VERSION/lib/cmake
 
+# Add an environment variable to help differentiate between the host and the container
+ENV IN_DOCKER_CONTAINER=1
+
 # Create a user
 ARG USERNAME=builder
 ARG PASSWORD=builder

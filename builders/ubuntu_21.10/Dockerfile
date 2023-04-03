@@ -33,6 +33,9 @@ RUN mkdir ~/cmake-install \
        && make -j$(nproc) \
        && make install
 
+# Add an environment variable to help differentiate between the host and the container
+ENV IN_DOCKER_CONTAINER=1
+
 # Create a user
 ARG USERNAME=builder
 ARG PASSWORD=builder
