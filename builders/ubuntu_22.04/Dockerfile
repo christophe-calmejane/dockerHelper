@@ -17,8 +17,10 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get -qq -y install \
        flex \
        python3 \
        ncurses-dev \
-       libpcap-dev
-RUN rm -rf /var/lib/apt/lists/*
+       libpcap-dev \
+       language-pack-en \
+       '^libxcb.*-dev' libx11-xcb-dev libglu1-mesa-dev libxrender-dev libxi-dev libxkbcommon-dev libxkbcommon-x11-dev libfontconfig-dev fontconfig
+       RUN rm -rf /var/lib/apt/lists/*
 
 # Install more recent CMake
 ARG CMAKE_VERSION=3.25.2
@@ -41,13 +43,17 @@ RUN git clone https://code.qt.io/qt/qt5.git qt6 \
        && perl init-repository --module-subset=essential \
        && mkdir _build \
        && cd _build \
-       && ../configure -opensource -nomake examples -nomake tests -confirm-license -skip webengine -skip 3d -skip location -no-opengl \
+       && ../configure -opensource -nomake examples -nomake tests -confirm-license -skip webengine -skip 3d -skip location -no-opengl -fontconfig \
        && cmake --build . --parallel \
        && cmake --build . --target install \
        && cd ../.. \
        && rm -rf qt6
 # Qt is installed in /usr/local/Qt-$QT_VERSION
 # Qt6Config.cmake is installed in /usr/local/Qt-$QT_VERSION/lib/cmake
+
+# Create a ld.so.conf.d file to help find Qt
+RUN echo "/usr/local/Qt-$QT_VERSION/lib" > /etc/ld.so.conf.d/qt.conf \
+       && ldconfig
 
 # Add an environment variable to help differentiate between the host and the container
 ENV IN_DOCKER_CONTAINER=1
@@ -63,6 +69,12 @@ RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 # Switch to user
 WORKDIR /home/$USERNAME
 USER $USERNAME
+
+# Add Qt bin to PATH
+RUN echo "export PATH=/usr/local/Qt-$QT_VERSION/bin:\$PATH" >> ~/.bashrc
+
+# Set UTF8 locale
+RUN echo "export LANG=en_US.utf8" >> ~/.bashrc
 
 # Create a folder to mount sources
 RUN mkdir -p ~/sources
