@@ -19,6 +19,9 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get -qq -y install \
        ncurses-dev \
        libpcap-dev \
        language-pack-en \
+       curl \
+       zip \
+       unzip \
        '^libxcb.*-dev' libx11-xcb-dev libglu1-mesa-dev libxrender-dev libxi-dev libxkbcommon-dev libxkbcommon-x11-dev libfontconfig-dev fontconfig
        RUN rm -rf /var/lib/apt/lists/*
 
