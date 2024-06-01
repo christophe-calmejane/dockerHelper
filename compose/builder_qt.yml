@@ -1,0 +1,16 @@
+# Include volume
+include:
+  - builder.yml
+
+# Define builder service
+services:
+  # Qt builder image
+  builder_qt:
+    image: builder:${BUILDER_BASE_TAG}-qt_${QT_VERSION}
+    depends_on:
+      - builder
+    build:
+      context: .
+      dockerfile: ../builders/${BUILDER_BASE_TAG}_Qt/Dockerfile
+      args:
+        - QT_VERSION=${QT_VERSION}

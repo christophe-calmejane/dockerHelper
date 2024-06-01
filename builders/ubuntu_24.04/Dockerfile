@@ -1,7 +1,7 @@
-# Base our image from ubuntu jammy
-FROM ubuntu:22.04
+# Base our image from ubuntu noble
+FROM ubuntu:24.04
 
-# Update apt sources (jammy has been moved to old-releases)
+# Update apt sources (noble has been moved to old-releases)
 # RUN sed -i -r 's/([a-z]{2}.)?archive.ubuntu.com/old-releases.ubuntu.com/g' /etc/apt/sources.list && sed -i -r 's/security.ubuntu.com/old-releases.ubuntu.com/g' /etc/apt/sources.list
 
 # Install required packages
@@ -42,7 +42,7 @@ ENV IN_DOCKER_CONTAINER=1
 ARG USERNAME=builder
 ARG PASSWORD=builder
 
-RUN useradd -rm -d /home/"$USERNAME" -s /bin/bash -g root -G sudo -u 1000 "$USERNAME"
+RUN useradd -rm -d /home/"$USERNAME" -s /bin/bash -g root -G sudo -u 1001 "$USERNAME"
 RUN echo "$PASSWORD\n$PASSWORD" | passwd "$USERNAME"
 RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 

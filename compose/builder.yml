@@ -1,0 +1,13 @@
+# Include volume
+include:
+  - volume.yml
+
+# Define builder service
+services:
+  # Base builder image
+  builder:
+    image: builder:${BUILDER_BASE_TAG}
+    build:
+      context: .
+      dockerfile: ../builders/${BUILDER_BASE_TAG}/Dockerfile
+
