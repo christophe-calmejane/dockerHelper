@@ -1,10 +1,5 @@
 # Base our image from builder
-FROM builder:ubuntu_21.10
-
-# Install additional packages
-RUN DEBIAN_FRONTEND=noninteractive sudo apt-get update && sudo apt-get -qq -y install \
-       unzip \
-       && sudo rm -rf /var/lib/apt/lists/*
+FROM builder:ubuntu_22.04
 
 # Install SonarQube 'Scanner'
 ARG ScanerVersion=4.7.0.2747

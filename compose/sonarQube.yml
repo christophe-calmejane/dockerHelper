@@ -1,0 +1,19 @@
+# !!! A builder service must be included before this file !!!
+
+# Define services
+services:
+  # SonarQube image
+  sonarqube:
+    image: sonarqube:${BUILDER_BASE_TAG}
+    build:
+      context: .
+      dockerfile: ../sonarQube/${BUILDER_BASE_TAG}/Dockerfile
+
+  # SonarQube service
+  sonar:
+    image: sonarqube:${BUILDER_BASE_TAG}
+    volumes:
+      - ${MOUNT_POINT:?Base folder of the repository}:/home/builder/sources:ro
+      - builds:/home/builder/builds
+    entrypoint: /home/builder/sonar-scanner-4.7.0.2747-linux/bin/sonar-scanner -Dproject.settings=/home/builder/sources/Docker/sonar.properties -Dsonar.cfamily.compile-commands=/home/builder/builds/${BUILD_FOLDER}/compile_commands.json
+    working_dir: /home/builder/sources
