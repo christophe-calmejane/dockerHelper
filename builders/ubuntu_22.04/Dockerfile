@@ -21,6 +21,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update && apt-get -qq -y install \
        curl \
        zip \
        unzip \
+       libssl-dev \
        && rm -rf /var/lib/apt/lists/*
 
 # Install more recent CMake
@@ -31,7 +32,7 @@ RUN mkdir ~/cmake-install \
        && wget https://github.com/Kitware/CMake/releases/download/v$CMAKE_VERSION/cmake-$CMAKE_VERSION.tar.gz \
        && tar -xzvf cmake-"$CMAKE_VERSION".tar.gz \
        && cd cmake-"$CMAKE_VERSION"/ \
-       && ./bootstrap -- -DCMAKE_USE_OPENSSL=OFF \
+       && ./bootstrap -- -DCMAKE_USE_OPENSSL=ON \
        && make -j$(nproc) \
        && make install
 

@@ -18,6 +18,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get -qq -y install \
        python \
        ncurses-dev \
        libpcap-dev \
+       libssl-dev \
        qtbase5-dev
 RUN rm -rf /var/lib/apt/lists/*
 
@@ -29,7 +30,7 @@ RUN mkdir ~/cmake-install \
        && wget https://github.com/Kitware/CMake/releases/download/v$CMAKE_VERSION/cmake-$CMAKE_VERSION.tar.gz \
        && tar -xzvf cmake-$CMAKE_VERSION.tar.gz \
        && cd cmake-$CMAKE_VERSION/ \
-       && ./bootstrap -- -DCMAKE_USE_OPENSSL=OFF \
+       && ./bootstrap -- -DCMAKE_USE_OPENSSL=ON \
        && make -j$(nproc) \
        && make install
 
