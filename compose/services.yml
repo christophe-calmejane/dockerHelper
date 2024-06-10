@@ -8,6 +8,8 @@ services:
     env_file:
       - path: .env.computed
         required: true
+      - path: ${DOCKER_BASE_FOLDER}/.env.override
+        required: false
     volumes:
       - ${MOUNT_POINT:?Base folder of the repository}:/home/builder/sources:ro
       - builds:/home/builder/builds
@@ -23,6 +25,8 @@ services:
     env_file:
       - path: .env.computed
         required: true
+      - path: ${DOCKER_BASE_FOLDER}/.env.override
+        required: false
     volumes:
       - ${MOUNT_POINT:?Base folder of the repository}:/home/builder/sources:ro
       - builds:/home/builder/builds
@@ -34,6 +38,8 @@ services:
     env_file:
       - path: .env.computed
         required: true
+      - path: ${DOCKER_BASE_FOLDER}/.env.override
+        required: false
     volumes:
       - ${MOUNT_POINT:?Base folder of the repository}:/home/builder/sources:ro
       - builds:/home/builder/builds
@@ -49,6 +55,8 @@ services:
     env_file:
       - path: .env.computed
         required: true
+      - path: ${DOCKER_BASE_FOLDER}/.env.override
+        required: false
     volumes:
       - builds:/home/builder/builds
     entrypoint: ./${APP:?Name of the application to run}
