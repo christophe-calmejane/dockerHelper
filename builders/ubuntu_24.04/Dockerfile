@@ -22,6 +22,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update && apt-get -qq -y install \
        zip \
        unzip \
        libssl-dev \
+       gdb \
        && rm -rf /var/lib/apt/lists/*
 
 # Install more recent CMake
