@@ -4,7 +4,7 @@ FROM builder:ubuntu_24.04
 # RUN sed -i -r 's/([a-z]{2}.)?archive.ubuntu.com/old-releases.ubuntu.com/g' /etc/apt/sources.list && sed -i -r 's/security.ubuntu.com/old-releases.ubuntu.com/g' /etc/apt/sources.list
 
 # Install additional packages
-RUN DEBIAN_FRONTEND=noninteractive sudo apt-get update && sudo apt-get -qq -y install \
+RUN sudo apt-get update && sudo DEBIAN_FRONTEND=noninteractive apt-get -qq -y install \
        '^libxcb.*-dev' libx11-xcb-dev libglu1-mesa-dev libxrender-dev libxi-dev libxkbcommon-dev libxkbcommon-x11-dev libfontconfig-dev fontconfig \
        && sudo rm -rf /var/lib/apt/lists/*
 

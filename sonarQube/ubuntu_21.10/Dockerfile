@@ -2,9 +2,9 @@
 FROM builder:ubuntu_21.10
 
 # Install additional packages
-RUN DEBIAN_FRONTEND=noninteractive sudo apt-get update && sudo apt-get -qq -y install \
-       unzip \
-       && sudo rm -rf /var/lib/apt/lists/*
+RUN sudo apt-get update && sudo DEBIAN_FRONTEND=noninteractive apt-get -qq -y install \
+	unzip \
+	&& sudo rm -rf /var/lib/apt/lists/*
 
 # Install SonarQube 'Scanner'
 ARG ScanerVersion=4.7.0.2747
